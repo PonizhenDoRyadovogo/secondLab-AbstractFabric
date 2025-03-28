@@ -3,9 +3,9 @@
 
 #include <vector>
 
-#include "Unit.h"
+#include "IClass.h"
 
-class ClassUnit : public Unit
+class ClassCpp : public IClass
 {
 public:
     enum AccessModifier {
@@ -13,15 +13,11 @@ public:
         PROTECTED,
         PRIVATE
     };
-    static const std::vector<std::string> ACCESS_MODIFIERS;
-public:
-    explicit ClassUnit(const std::string& name);
+    explicit ClassCpp(const std::string& name);
     void add(const std::shared_ptr<Unit>& unit, Flags flags) override;
     std::string compile(unsigned int level = 0) const override;
-private:
-    std::string m_name;
-    using Fields = std::vector<std::shared_ptr<Unit>>;
-    std::vector<Fields> m_fields;
+public:
+    static const std::vector<std::string> ACCESS_MODIFIERS;
 };
 
 #endif // CLASSUNIT_H

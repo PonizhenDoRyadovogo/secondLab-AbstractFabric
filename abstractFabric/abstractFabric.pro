@@ -9,6 +9,7 @@ CONFIG += c++17 cmdline
 INCLUDEPATH += $$PWD/headers
 
 SOURCES += \
+        src/IClass.cpp \
         src/ClassUnit.cpp \
         src/PrintOperatorUnit.cpp \
         src/main.cpp \
@@ -20,6 +21,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    headers/IClass.h \
     headers/ClassUnit.h \
     headers/MethodUnit.h \
     headers/PrintOperatorUnit.h \
