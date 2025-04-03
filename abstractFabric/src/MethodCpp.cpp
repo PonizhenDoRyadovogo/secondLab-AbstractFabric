@@ -1,15 +1,15 @@
-#include "MethodUnit.h"
+#include "MethodCpp.h"
 
-MethodUnit::MethodUnit(const std::string& name, const std::string& returnType, Flags flags)
+MethodCpp::MethodCpp(const std::string& name, const std::string& returnType, Flags flags)
     : m_name(name), m_returnType(returnType), m_flags(flags)
 {}
 
-void MethodUnit::add(const std::shared_ptr<Unit>& unit, Flags)
+void MethodCpp::add(const std::shared_ptr<Unit>& unit, Flags)
 {
     m_body.push_back(unit);
 }
 
-std::string MethodUnit::compile(unsigned int level) const
+std::string MethodCpp::compile(unsigned int level) const
 {
     std::string result = generateShift(level);
     if(m_flags & STATIC) {

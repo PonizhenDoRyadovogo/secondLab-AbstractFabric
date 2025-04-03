@@ -1,11 +1,11 @@
-#ifndef METHODUNIT_H
-#define METHODUNIT_H
+#ifndef METHODCPP_H
+#define METHODCPP_H
 
-#include    <vector>
+#include <vector>
 
 #include "Unit.h"
 
-class MethodUnit : public Unit
+class MethodCpp : public Unit
 {
 public:
     enum Modifier {
@@ -14,8 +14,8 @@ public:
       VIRTUAL = 1 << 2
     };
 public:
-    MethodUnit(const std::string& name, const std::string& returnType, Flags flags);
-    void add(const std::shared_ptr<Unit>& unit, Flags = 0) override;
+    MethodCpp(const std::string &name, const std::string& returnType, Flags flags);
+    void add(const std::shared_ptr<Unit> &unit, Flags = 0) override;
     std::string compile(unsigned int level = 0) const override;
 private:
     std::string m_name;
@@ -24,4 +24,4 @@ private:
     std::vector<std::shared_ptr<Unit>> m_body;
 };
 
-#endif // METHODUNIT_H
+#endif // METHODCPP_H

@@ -1,11 +1,11 @@
 #include <vector>
 
-#include "ClassUnit.h"
+#include "ClassCpp.h"
 
 const std::vector<std::string> ClassCpp::ACCESS_MODIFIERS = {"public", "protected", "private"};
 
 ClassCpp::ClassCpp(const std::string& name)
-    :IClass(name)
+    :m_name(name)
 {
     m_fields.resize(ACCESS_MODIFIERS.size());
 }
