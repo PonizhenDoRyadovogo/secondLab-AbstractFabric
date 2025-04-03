@@ -1,9 +1,13 @@
 #include "ClassJava.h"
+#include "MethodJava.h"
 
-void ClassJava::add(const std::shared_ptr<Unit>& unit, Flags flags)
+void ClassJava::add(const std::shared_ptr<Unit>& unit, Flags)
 {
-    //ToDo: добавить проверку на то, если к нам придет абстрактный метод
-    //если это так, то выставить флаг ABSTRACT
+    if(auto method = std::dynamic_pointer_cast<MethodJava>(unit)) {
+        if(method->hasModifier(MethodJava::Modifier::ABSTRACT)) {
+            m_flags |= ABSTRACT;
+        }
+    }
     m_fields.push_back(unit);
 }
 

@@ -18,7 +18,7 @@ public:
     ClassJava(const std::string &name, Flags modifiers)
         :m_name(name), m_flags(modifiers)
     {}
-    void add(const std::shared_ptr<Unit>& unit, Flags flags = 0) override;
+    void add(const std::shared_ptr<Unit>& unit, Flags) override;
     std::string compile(unsigned int level = 0) const override;
 private:
     std::string m_name;

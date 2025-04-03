@@ -14,6 +14,7 @@ SOURCES += \
         src/ClassJava.cpp \
         src/MethodCpp.cpp \
         src/MethodCs.cpp \
+        src/MethodJava.cpp \
         src/PrintOperatorCpp.cpp \
         src/main.cpp
 
@@ -28,5 +29,6 @@ HEADERS += \
     headers/ClassJava.h \
     headers/MethodCpp.h \
     headers/MethodCs.h \
+    headers/MethodJava.h \
     headers/PrintOperatorCpp.h \
     headers/Unit.h
