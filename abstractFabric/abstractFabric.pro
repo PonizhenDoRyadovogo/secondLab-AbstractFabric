@@ -16,6 +16,8 @@ SOURCES += \
         src/MethodCs.cpp \
         src/MethodJava.cpp \
         src/PrintOperatorCpp.cpp \
+        src/PrintOperatorCs.cpp \
+        src/PrintOperatorJava.cpp \
         src/main.cpp
 
 # Default rules for deployment.
@@ -31,4 +33,6 @@ HEADERS += \
     headers/MethodCs.h \
     headers/MethodJava.h \
     headers/PrintOperatorCpp.h \
+    headers/PrintOperatorCs.h \
+    headers/PrintOperatorJava.h \
     headers/Unit.h
