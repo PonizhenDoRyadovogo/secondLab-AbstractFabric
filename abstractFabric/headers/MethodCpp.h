@@ -14,7 +14,7 @@ public:
       VIRTUAL = 1 << 2
     };
 public:
-    MethodCpp(const std::string &name, const std::string& returnType, Flags flags);
+    MethodCpp(const std::string &name, const std::string& returnType, Flags flags = 0);
     void add(const std::shared_ptr<Unit> &unit, Flags = 0) override;
     std::string compile(unsigned int level = 0) const override;
 private:

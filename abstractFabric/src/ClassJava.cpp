@@ -20,17 +20,24 @@ std::string ClassJava::compile(unsigned int level) const
     else if(m_flags & PROTECTED) {
         result += "protected ";
     }
-    else if(m_flags & ABSTRACT) {
+    if(m_flags & ABSTRACT) {
         result += "abstract ";
     }
 
+    //если класс имеет модификатор abstract, то он не может быть final
     if(m_flags & FINAL) {
-        if(m_flags & ~ABSTRACT) {
-
+        if((m_flags & ABSTRACT) == 0) {
+            result += "final class " + m_name + " {\n";
         }
     }
-    result += "class " + m_name;
+    else {
+        result += "class " + m_name + " {\n";
+    }
 
-    if
+    for(auto &f: m_fields) {
+        result += f->compile(level + 1) + "\n";
+    }
 
+    result += generateShift(level) + "}\n;";
+    return result;
 }

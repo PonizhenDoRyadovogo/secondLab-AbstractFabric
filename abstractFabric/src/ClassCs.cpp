@@ -21,6 +21,7 @@ std::string ClassCs::compile(unsigned int level) const
         }
     }
 
+
     if(finalMods & PRIVATE) {
         result += "private ";
     }
