@@ -17,13 +17,12 @@ std::string ClassJava::compile(unsigned int level) const
 
     if(m_flags & PRIVATE) {
         result += "private ";
-    }
-    else if(m_flags & PUBLIC) {
+    } else if(m_flags & PUBLIC) {
         result += "public ";
-    }
-    else if(m_flags & PROTECTED) {
+    } else if(m_flags & PROTECTED) {
         result += "protected ";
     }
+
     if(m_flags & ABSTRACT) {
         result += "abstract ";
     }

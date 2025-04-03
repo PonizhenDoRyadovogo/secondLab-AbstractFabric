@@ -29,6 +29,10 @@ HEADERS += \
     headers/ClassCpp.h \
     headers/ClassCs.h \
     headers/ClassJava.h \
+    headers/CodeFactoryCpp.h \
+    headers/CodeFactoryCs.h \
+    headers/CodeFactoryJava.h \
+    headers/ICodeFactory.h \
     headers/MethodCpp.h \
     headers/MethodCs.h \
     headers/MethodJava.h \

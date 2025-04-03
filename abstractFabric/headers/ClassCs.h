@@ -18,8 +18,8 @@ public:
         PUBLIC = 1 << 6
     };
 public:
-    ClassCs(const std::string& name, Flags modifiers, bool isNested = false)
-        : m_name(name), m_flags(modifiers), m_isNested(isNested)
+    ClassCs(const std::string& name, Flags flags, bool isNested = false)
+        : m_name(name), m_flags(flags), m_isNested(isNested)
     {}
     void add(const std::shared_ptr<Unit>& unit, Flags) override;
     std::string compile(unsigned int level = 0) const override;

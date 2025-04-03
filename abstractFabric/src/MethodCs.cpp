@@ -11,23 +11,19 @@ std::string MethodCs::compile(unsigned int level) const
 
     if (m_flags & PRIVATE) {
         result += "private ";
-    }
-    else if(m_flags & PRIVATEPROTECTED) {
+    } else if(m_flags & PRIVATEPROTECTED) {
         result += "private protected";
-    }
-    else if(m_flags & PROTECTED) {
+    } else if(m_flags & PROTECTED) {
         result += "protected";
-    }
-    else if(m_flags & INTERNAL)
+    } else if(m_flags & INTERNAL)
     {
         result += "internal ";
-    }
-    else if(m_flags & PROTECTEDINTERNAL) {
+    } else if(m_flags & PROTECTEDINTERNAL) {
         result += "protetcted internal";
-    }
-    else if(m_flags & PUBLIC) {
+    } else if(m_flags & PUBLIC) {
         result += "public ";
     }
+
     if(m_flags & STATIC) {
         result += "static";
     }

@@ -24,23 +24,17 @@ std::string ClassCs::compile(unsigned int level) const
 
     if(finalMods & PRIVATE) {
         result += "private ";
-    }
-    else if(finalMods & PRIVATEPROTECTED) {
+    } else if(finalMods & PRIVATEPROTECTED) {
         result += "private protected ";
-    }
-    else if(finalMods & FILE) {
+    } else if(finalMods & FILE) {
         result += "file ";
-    }
-    else if(finalMods & PROTECTED) {
+    } else if(finalMods & PROTECTED) {
         result += "protected ";
-    }
-    else if(finalMods & INTERNAL) {
+    } else if(finalMods & INTERNAL) {
         result += "internal ";
-    }
-    else if(finalMods & PROTECTEDINTERNAL) {
+    } else if(finalMods & PROTECTEDINTERNAL) {
         result += "protected internal ";
-    }
-    else if(finalMods & PUBLIC) {
+    } else if(finalMods & PUBLIC) {
         result += "public ";
     }
 
