@@ -6,7 +6,7 @@
 #include "MethodCpp.h"
 #include "PrintOperatorCpp.h"
 
-class ICodefactoryCpp : public ICodefactory
+class CodefactoryCpp : public ICodefactory
 {
     std::shared_ptr<Unit> createClass(const std::string &name,
         Unit::Flags flags,
@@ -17,7 +17,7 @@ class ICodefactoryCpp : public ICodefactory
     }
 
     std::shared_ptr<Unit> createMethod(const std::string &name,
-        std::string &returnType,
+        const std::string &returnType,
         Unit::Flags flags
     ) const override
     {

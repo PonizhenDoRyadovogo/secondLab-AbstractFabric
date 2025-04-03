@@ -17,7 +17,7 @@ class CodeFactoryCs : public ICodefactory
     }
 
     std::shared_ptr<Unit> createMethod(const std::string &name,
-        std::string &returnType,
+        const std::string &returnType,
         Unit::Flags flags
     ) const override
     {

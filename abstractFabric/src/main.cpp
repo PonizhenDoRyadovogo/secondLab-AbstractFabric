@@ -1,26 +1,32 @@
-#include "Unit.h"
-#include "ClassCpp.h"
-#include "MethodCpp.h"
-#include "PrintOperatorCpp.h"
-
 #include <QCoreApplication>
 #include <iostream>
 
-std::string generateProgram()
+#include "ICodeFactory.h"
+#include "CodeFactoryCs.h"
+#include "CodeFactoryCpp.h"
+#include "CodeFactoryJava.h"
+
+std::string generateProgram(const ICodefactory &factory)
 {
-    ClassCpp myClass("MyClass");
-    myClass.add(std::make_shared<MethodCpp>("testFunc1", "void", 0), ClassCpp::PUBLIC);
-    myClass.add(std::make_shared<MethodCpp>("testFunc2", "void", MethodCpp::STATIC), ClassCpp::PRIVATE);
-    myClass.add(std::make_shared<MethodCpp>("testFunc3", "void", MethodCpp::VIRTUAL | MethodCpp::CONST), ClassCpp::PUBLIC);
-    auto method = std::make_shared<MethodCpp>("testFunc4", "void", MethodCpp::STATIC);
-    method->add(std::make_shared<PrintOperatorCpp>("Hello, world!\\n"));
-    myClass.add(method, ClassCpp::PROTECTED);
-    return myClass.compile();
+    auto myClass = factory.createClass("MyClass", ClassCs::PUBLIC);
+    auto myMethod = factory.createMethod("func1", "int", MethodCs::PRIVATE);
+    myMethod->add(factory.createPrintOperator("Hello, World"), 0);
+    myClass->add(myMethod, 0);
+    return myClass->compile();
 }
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    std::cout << generateProgram() <<std::endl;
+    {
+        std::cout<<"=== C# code ===\n";
+        CodeFactoryCs csFactory;
+        std::cout << generateProgram(csFactory) <<std::endl;
+    }
+    {
+        std::cout<<"=== C++ code ===\n";
+        CodefactoryCpp cppFactory;
+        std::cout << generateProgram(cppFactory) <<std::endl;
+    }
     return a.exec();
 }
