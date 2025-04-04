@@ -26,7 +26,7 @@ std::string ClassCpp::compile(unsigned int level) const
         if(m_fields[i].empty()) {
             continue;
         }
-        result += ACCESS_MODIFIERS[i] + ":\n";
+        result += generateShift(level) + ACCESS_MODIFIERS[i] + ":\n";
         for(const auto& f: m_fields[i]) {
             result += f->compile(level + 1);
         }

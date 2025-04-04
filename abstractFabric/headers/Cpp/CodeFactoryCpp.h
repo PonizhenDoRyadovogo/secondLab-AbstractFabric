@@ -8,6 +8,7 @@
 
 class CodeFactoryCpp : public ICodefactory
 {
+public:
     std::shared_ptr<Unit> createClass(const std::string &name,
         Unit::Flags flags
     ) const override

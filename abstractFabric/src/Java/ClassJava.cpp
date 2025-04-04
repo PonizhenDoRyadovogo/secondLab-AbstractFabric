@@ -32,7 +32,7 @@ std::string ClassJava::compile(unsigned int level) const
 {
     std::string result = generateShift(level);
 
-    result += ACCESS_MODIFIERS[m_accessModifier] + " ";
+    result += (level == 0) ? (ACCESS_MODIFIERS[m_accessModifier] + " ") : "";
     if(m_flags & FINAL) {
         if((m_flags & ABSTRACT) == 0) {
             result += "final ";
