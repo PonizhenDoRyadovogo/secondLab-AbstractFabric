@@ -7,7 +7,7 @@ void MethodCs::add(const std::shared_ptr<Unit> &unit, Flags)
 
 std::string MethodCs::compile(unsigned int level) const
 {
-    std::string result = generateShift(level);
+    std::string result;
 
     //static и virtual нельзя комбинировать
     if(m_flags & STATIC) {

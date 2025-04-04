@@ -54,7 +54,7 @@ std::string ClassJava::compile(unsigned int level) const
             } else {
                 result += generateShift(level + 1);
                 result += ACCESS_MODIFIERS[i] + " ";
-                result += f->compile(0);
+                result += f->compile(level + 1);
             }
         }
         result += "\n";

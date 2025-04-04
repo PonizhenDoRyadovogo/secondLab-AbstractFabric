@@ -7,7 +7,7 @@ void MethodJava::add(const std::shared_ptr<Unit> &unit, Flags)
 
 std::string MethodJava::compile(unsigned int level) const
 {
-    std::string result = generateShift(level);
+    std::string result;
 
     if(m_flags & STATIC) {
         result += "static ";

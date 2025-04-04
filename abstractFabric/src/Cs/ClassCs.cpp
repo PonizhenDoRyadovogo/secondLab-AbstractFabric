@@ -42,9 +42,13 @@ std::string ClassCs::compile(unsigned int level) const
         }
 
         for(const auto& f: m_fields[i]) {
-            result += generateShift(level + 1);
-            result += ACCESS_MODIFIERS[i] + " ";
-            result += f->compile(0);
+            if(auto tmpClass = std::dynamic_pointer_cast<ClassCs>(f)) {
+                result += f->compile(level + 1);
+            } else {
+                result += generateShift(level + 1);
+                result += ACCESS_MODIFIERS[i] + " ";
+                result += f->compile(level + 1);
+            }
         }
         result += "\n";
     }
