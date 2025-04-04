@@ -8,16 +8,16 @@
 
 std::string generateProgram(const ICodefactory &factory)
 {
-    auto myClass = factory.createClass("MyClass", Unit::PUBLIC);
-    auto myMethod = factory.createMethod("func1", "int", Unit::PRIVATE);
+    auto myClass = factory.createClass("MyClass", Unit::FINAL, Unit::PUBLIC);
+    auto myMethod = factory.createMethod("func1", "int", Unit::ABSTRACT);
     myMethod->add(factory.createPrintOperator("Hello, World"), 0);
     myClass->add(myMethod, Unit::PRIVATEPROTECTED);
-    auto nestedClass = factory.createClass("NestedClass", Unit::PUBLIC);
+    auto nestedClass = factory.createClass("NestedClass", Unit::ABSTRACT, Unit::PUBLIC);
     myClass->add(nestedClass, Unit::PROTECTED);
     nestedClass->add(factory.createMethod("func2", "void", Unit::ABSTRACT), Unit::PROTECTED);
-    auto doubleNestedClass = factory.createClass("BlaBla", Unit::PRIVATE);
+    auto doubleNestedClass = factory.createClass("BlaBla", 0, Unit::PRIVATE);
     doubleNestedClass->add(factory.createMethod("func3", "double", Unit::VIRTUAL), Unit::PUBLIC);
-    nestedClass->add(doubleNestedClass, Unit::PROTECTED);
+    nestedClass->add(doubleNestedClass, Unit::PUBLIC);
     return myClass->compile();
 }
 

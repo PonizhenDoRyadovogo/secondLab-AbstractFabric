@@ -14,12 +14,21 @@ std::string MethodCs::compile(unsigned int level) const
         result += "static ";
     } else if(m_flags & VIRTUAL) {
         result += "virtual ";
+    } else if(m_flags & ABSTRACT) {
+        result += "abstract ";
     }
 
-    result += m_returnType + " " + m_name + "()" + "{\n";
-    for(const auto& b: m_body) {
-        result += b->compile(level + 2);
+    result += m_returnType + " " + m_name + "()";
+    if((m_flags & ABSTRACT) == 0) {
+        result += "{\n";
+        for(const auto& b: m_body) {
+            result += b->compile(level + 2);
+        }
+        result += generateShift(level + 1) + "}\n";
     }
-    result += generateShift(level + 1) + "}\n";
+    else {
+        result += ";\n";
+    }
+
     return result;
 }

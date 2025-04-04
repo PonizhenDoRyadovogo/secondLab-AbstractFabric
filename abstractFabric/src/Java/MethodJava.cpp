@@ -18,12 +18,17 @@ std::string MethodJava::compile(unsigned int level) const
         result += "final ";
     }
 
-    result += m_returnType + " " + m_name + "()" + "{\n";
-
-    for(const auto& b: m_body) {
-        result += b->compile(level + 2);
+    result += m_returnType + " " + m_name + "()";
+    if((m_flags & ABSTRACT) == 0) {
+        result += "{\n";
+        for(const auto& b: m_body) {
+            result += b->compile(level + 2);
+        }
+        result += generateShift(level) + "}\n";
+    } else {
+        result += ";\n";
     }
-    result += generateShift(level + 1) + "}\n";
+
     return result;
 }
 

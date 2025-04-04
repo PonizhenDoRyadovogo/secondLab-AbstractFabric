@@ -12,7 +12,7 @@ public:
     {}
     void add(const std::shared_ptr<Unit> &unit, Flags = 0) override;
     std::string compile(unsigned int level = 0) const override;
-    bool hasModifier(Modifier m) const {
+    bool hasModifier(Flags m) const {
         return (m_flags & m) != 0;
     }
 private:

@@ -10,10 +10,11 @@ class CodeFactoryCpp : public ICodefactory
 {
 public:
     std::shared_ptr<Unit> createClass(const std::string &name,
-        Unit::Flags flags
+        Unit::Flags flags,
+        Unit::Flags accessModifier
     ) const override
     {
-        return std::make_shared<ClassCpp>(name, flags);
+        return std::make_shared<ClassCpp>(name, accessModifier, flags);
     }
 
     std::shared_ptr<Unit> createMethod(const std::string &name,

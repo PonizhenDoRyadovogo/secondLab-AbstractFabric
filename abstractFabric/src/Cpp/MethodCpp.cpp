@@ -14,7 +14,7 @@ std::string MethodCpp::compile(unsigned int level) const
     std::string result = generateShift(level);
     if(m_flags & STATIC) {
         result += "static ";
-    } else if(m_flags & VIRTUAL) {
+    } else if((m_flags & VIRTUAL) || (m_flags & ABSTRACT)) {
         result += "virtual ";
     }
     result += m_returnType + " ";
@@ -22,10 +22,16 @@ std::string MethodCpp::compile(unsigned int level) const
     if(m_flags & CONST) {
         result += " const";
     }
-    result += " {\n";
-    for(const auto& b: m_body) {
-        result += b->compile(level + 1);
+
+    if(m_flags & ABSTRACT) {
+        result += " = 0;\n";
+    } else {
+        result += " {\n";
+        for(const auto& b: m_body) {
+            result += b->compile(level + 1);
+        }
+        result += generateShift(level) + "}\n";
     }
-    result += generateShift(level) + "}\n";
+
     return result;
 }

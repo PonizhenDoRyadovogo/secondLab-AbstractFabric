@@ -9,7 +9,7 @@ class ClassJava : public Unit
 public:
     static const std::vector<std::string> ACCESS_MODIFIERS;
 public:
-    ClassJava(const std::string &name, Flags modifier = 0);
+    ClassJava(const std::string &name, Flags flags, Flags accessModifier = 0);
     void add(const std::shared_ptr<Unit>& unit, Flags flags = 3) override;
     std::string compile(unsigned int level = 0) const override;
 private:

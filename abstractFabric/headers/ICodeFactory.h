@@ -7,7 +7,8 @@ class ICodefactory {
 public:
     virtual ~ICodefactory() = default;
     virtual std::shared_ptr<Unit> createClass(const std::string &name,
-        Unit::Flags flags
+        Unit::Flags flags,
+        Unit::Flags accessModifier
     ) const = 0;
 
     virtual std::shared_ptr<Unit> createMethod(const std::string &name,

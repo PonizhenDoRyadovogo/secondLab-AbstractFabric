@@ -3,12 +3,12 @@
 
 const std::vector<std::string> ClassJava::ACCESS_MODIFIERS = {"public", "protected", "private"};
 
-ClassJava::ClassJava(const std::string &name, Flags modifier)
-    :m_name(name)
+ClassJava::ClassJava(const std::string &name, Flags flags, Flags accessModifier)
+    :m_name(name), m_flags(flags)
 {
     m_fields.resize(ACCESS_MODIFIERS.size());
-    if(modifier < ACCESS_MODIFIERS.size()) {
-       m_accessModifier = modifier;
+    if(accessModifier < ACCESS_MODIFIERS.size()) {
+       m_accessModifier = accessModifier;
     } else {
         m_accessModifier = PUBLIC;
     }
@@ -17,7 +17,7 @@ ClassJava::ClassJava(const std::string &name, Flags modifier)
 void ClassJava::add(const std::shared_ptr<Unit>& unit, Flags flags)
 {
     if(auto method = std::dynamic_pointer_cast<MethodJava>(unit)) {
-        if(method->hasModifier(MethodJava::Modifier::ABSTRACT)) {
+        if(method->hasModifier(ABSTRACT)) {
             m_flags |= ABSTRACT;
         }
     }
@@ -30,16 +30,18 @@ void ClassJava::add(const std::shared_ptr<Unit>& unit, Flags flags)
 
 std::string ClassJava::compile(unsigned int level) const
 {
-    std::string result = generateShift(level);
+    std::string result = (level == 0) ? generateShift(level) : "";
 
-    result += ACCESS_MODIFIERS[m_accessModifier] + " ";
+    result += (level == 0) ? (ACCESS_MODIFIERS[m_accessModifier] + " ") : "";
     if(m_flags & FINAL) {
         if((m_flags & ABSTRACT) == 0) {
             result += "final ";
         }
         else {
-            result += "abstarct ";
+            result += "abstract ";
         }
+    } else if(m_flags & ABSTRACT) {
+        result += "abstract ";
     }
 
     result += "class " + m_name + "(){\n";
@@ -49,13 +51,9 @@ std::string ClassJava::compile(unsigned int level) const
         }
 
         for(const auto& f: m_fields[i]) {
-            if(auto tmpClass = std::dynamic_pointer_cast<ClassJava>(f)){
-                result += f->compile(level + 1);
-            } else {
-                result += generateShift(level + 1);
-                result += ACCESS_MODIFIERS[i] + " ";
-                result += f->compile(level + 1);
-            }
+            result += generateShift(level + 1);
+            result += ACCESS_MODIFIERS[i] + " ";
+            result += f->compile(level + 1);
         }
         result += "\n";
     }
