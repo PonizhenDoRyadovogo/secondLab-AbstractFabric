@@ -23,7 +23,7 @@ std::string MethodJava::compile(unsigned int level) const
     for(const auto& b: m_body) {
         result += b->compile(level + 2);
     }
-    result += generateShift(level) + "}\n";
+    result += generateShift(level + 1) + "}\n";
     return result;
 }
 

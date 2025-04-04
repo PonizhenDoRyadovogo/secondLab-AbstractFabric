@@ -32,7 +32,7 @@ std::string ClassJava::compile(unsigned int level) const
 {
     std::string result = generateShift(level);
 
-    result += (level == 0) ? (ACCESS_MODIFIERS[m_accessModifier] + " ") : "";
+    result += ACCESS_MODIFIERS[m_accessModifier] + " ";
     if(m_flags & FINAL) {
         if((m_flags & ABSTRACT) == 0) {
             result += "final ";
@@ -49,9 +49,13 @@ std::string ClassJava::compile(unsigned int level) const
         }
 
         for(const auto& f: m_fields[i]) {
-            result += generateShift(level + 1);
-            result += ACCESS_MODIFIERS[i] + " ";
-            result += f->compile(0);
+            if(auto tmpClass = std::dynamic_pointer_cast<ClassJava>(f)){
+                result += f->compile(level + 1);
+            } else {
+                result += generateShift(level + 1);
+                result += ACCESS_MODIFIERS[i] + " ";
+                result += f->compile(0);
+            }
         }
         result += "\n";
     }

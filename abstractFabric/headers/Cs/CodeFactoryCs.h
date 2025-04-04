@@ -1,6 +1,8 @@
 #ifndef CODEFACTORYCS_H
 #define CODEFACTORYCS_H
 
+#include <QDebug>
+
 #include "ICodeFactory.h"
 #include "ClassCs.h"
 #include "MethodCs.h"

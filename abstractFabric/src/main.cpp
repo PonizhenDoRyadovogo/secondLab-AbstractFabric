@@ -15,6 +15,9 @@ std::string generateProgram(const ICodefactory &factory)
     auto nestedClass = factory.createClass("NestedClass", Unit::PUBLIC);
     myClass->add(nestedClass, Unit::PROTECTED);
     nestedClass->add(factory.createMethod("func2", "void", Unit::ABSTRACT), Unit::PROTECTED);
+    auto doubleNestedClass = factory.createClass("BlaBla", Unit::PRIVATE);
+    doubleNestedClass->add(factory.createMethod("func3", "double", Unit::VIRTUAL), Unit::PUBLIC);
+    nestedClass->add(doubleNestedClass, Unit::PROTECTED);
     return myClass->compile();
 }
 
@@ -24,7 +27,6 @@ int main(int argc, char *argv[])
     {
         std::cout<<"=== C# code ===\n";
         CodeFactoryCs csFactory;
-        csFactory.createMethod("main");
         std::cout << generateProgram(csFactory) <<std::endl;
     }
     {
