@@ -48,6 +48,10 @@ std::string ClassCs::compile(unsigned int level) const
         }
         result += "\n";
     }
-    result += generateShift(level) + "};\n";
+    if(level != 0) {
+        result += generateShift(level + 1) + "};\n";
+    } else {
+        result += generateShift(level) + "};\n";
+    }
     return result;
 }

@@ -12,6 +12,8 @@ std::string generateProgram(const ICodefactory &factory)
     auto myMethod = factory.createMethod("func1", "int", Unit::PRIVATE);
     myMethod->add(factory.createPrintOperator("Hello, World"), 0);
     myClass->add(myMethod, Unit::PRIVATEPROTECTED);
+    auto nestedClass = factory.createClass("NestedClass", Unit::PUBLIC);
+    myClass->add(nestedClass, Unit::PROTECTED);
     return myClass->compile();
 }
 
