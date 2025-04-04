@@ -6,14 +6,13 @@
 #include "MethodCpp.h"
 #include "PrintOperatorCpp.h"
 
-class CodefactoryCpp : public ICodefactory
+class CodeFactoryCpp : public ICodefactory
 {
     std::shared_ptr<Unit> createClass(const std::string &name,
-        Unit::Flags flags,
-        bool isNested = false
+        Unit::Flags flags
     ) const override
     {
-        return std::make_shared<ClassCpp>(name);
+        return std::make_shared<ClassCpp>(name, flags);
     }
 
     std::shared_ptr<Unit> createMethod(const std::string &name,

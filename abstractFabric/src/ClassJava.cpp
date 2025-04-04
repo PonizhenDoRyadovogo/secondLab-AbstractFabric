@@ -1,46 +1,61 @@
 #include "ClassJava.h"
 #include "MethodJava.h"
 
-void ClassJava::add(const std::shared_ptr<Unit>& unit, Flags)
+const std::vector<std::string> ClassJava::ACCESS_MODIFIERS = {"public", "protected", "private"};
+
+ClassJava::ClassJava(const std::string &name, Flags modifier)
+    :m_name(name)
+{
+    m_fields.resize(ACCESS_MODIFIERS.size());
+    if(modifier < ACCESS_MODIFIERS.size()) {
+       m_accessModifier = modifier;
+    } else {
+        m_accessModifier = PUBLIC;
+    }
+}
+
+void ClassJava::add(const std::shared_ptr<Unit>& unit, Flags flags)
 {
     if(auto method = std::dynamic_pointer_cast<MethodJava>(unit)) {
         if(method->hasModifier(MethodJava::Modifier::ABSTRACT)) {
             m_flags |= ABSTRACT;
         }
     }
-    m_fields.push_back(unit);
+    int accessModifier = PRIVATE;
+    if(flags < ACCESS_MODIFIERS.size()) {
+        accessModifier = flags;
+    }
+    m_fields[accessModifier].push_back(unit);
 }
 
 std::string ClassJava::compile(unsigned int level) const
 {
     std::string result = generateShift(level);
 
-    if(m_flags & PRIVATE) {
-        result += "private ";
-    } else if(m_flags & PUBLIC) {
-        result += "public ";
-    } else if(m_flags & PROTECTED) {
-        result += "protected ";
-    }
-
-    if(m_flags & ABSTRACT) {
-        result += "abstract ";
-    }
-
-    //если класс имеет модификатор abstract, то он не может быть final
+    result += ACCESS_MODIFIERS[m_accessModifier] + " ";
     if(m_flags & FINAL) {
         if((m_flags & ABSTRACT) == 0) {
-            result += "final class " + m_name + " {\n";
+            result += "final ";
+        }
+        else {
+            result += "abstarct ";
         }
     }
-    else {
-        result += "class " + m_name + " {\n";
-    }
 
-    for(auto &f: m_fields) {
-        result += f->compile(level + 1) + "\n";
-    }
+    result += "class " + m_name + "(){\n";
+    for(size_t i = 0; i < ACCESS_MODIFIERS.size(); ++i) {
+        if(m_fields[i].empty()) {
+            continue;
+        }
 
-    result += generateShift(level) + "}\n;";
+        for(const auto& f: m_fields[i]) {
+            result += generateShift(level + 1);
+            result += ACCESS_MODIFIERS[i] + " ";
+            result += f->compile(0);
+        }
+        result += "\n";
+    }
+    result += generateShift(level) + "};\n";
     return result;
+
 }

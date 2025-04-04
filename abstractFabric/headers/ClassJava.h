@@ -7,23 +7,17 @@
 class ClassJava : public Unit
 {
 public:
-    enum Modifier {
-        PRIVATE = 1,
-        PUBLIC = 1 << 1,
-        PROTECTED = 1 << 2,
-        FINAL = 1 << 3,
-        ABSTRACT = 1 << 4
-    };
+    static const std::vector<std::string> ACCESS_MODIFIERS;
 public:
-    ClassJava(const std::string &name, Flags modifiers)
-        :m_name(name), m_flags(modifiers)
-    {}
-    void add(const std::shared_ptr<Unit>& unit, Flags) override;
+    ClassJava(const std::string &name, Flags modifier = 0);
+    void add(const std::shared_ptr<Unit>& unit, Flags flags = 3) override;
     std::string compile(unsigned int level = 0) const override;
 private:
     std::string m_name;
+    Flags m_accessModifier;
     Flags m_flags;
-    std::vector<std::shared_ptr<Unit>> m_fields;
+    using Fields = std::vector<std::shared_ptr<Unit>>;
+    std::vector<Fields> m_fields;
 };
 
 #endif // CLASSJAVA_H

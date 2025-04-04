@@ -1,49 +1,53 @@
 #include "ClassCs.h"
 
-void ClassCs::add(const std::shared_ptr<Unit> &unit, Flags)
+const std::vector<std::string> ClassCs::ACCESS_MODIFIERS = {"public", "protected", "private", "private protected",
+                                                            "file", "internal", "protetcted internal"};
+
+ClassCs::ClassCs(const std::string &name, Flags modifier)
+    :m_name(name)
 {
-    m_fields.push_back(unit);
+    m_fields.resize(ACCESS_MODIFIERS.size());
+    if(modifier < ACCESS_MODIFIERS.size()) {
+        m_accessModifier = modifier;
+    } else {
+        m_accessModifier = INTERNAL;
+    }
+}
+
+void ClassCs::add(const std::shared_ptr<Unit> &unit, Flags flags)
+{
+    int accessModifier = PRIVATE;
+    if(flags < ACCESS_MODIFIERS.size()) {
+        accessModifier = flags;
+    }
+    m_fields[accessModifier].push_back(unit);
 }
 
 std::string ClassCs::compile(unsigned int level) const
 {
     std::string result = generateShift(level);
-
-    Flags finalMods = m_flags;
+    Flags finalMods = m_accessModifier;
     //у топ-левел классов могут быть только модификаторы public, file и internal
-    if(!m_isNested) {
-        static const Flags ALLOWED_TOPLEVEL = PUBLIC | INTERNAL | FILE;
-
-        Flags tmpFlags = m_flags & ~ALLOWED_TOPLEVEL;
-        //если у нас есть недопустимые модификаторы для топ-левел класса, то сбрасываем флаги
-        if(tmpFlags != 0) {
-            finalMods = PUBLIC;
+    if(level == 0) {
+        if(m_accessModifier != PUBLIC & m_accessModifier != FILE & m_accessModifier != INTERNAL) {
+            finalMods = INTERNAL;
         }
     }
 
+    result += ACCESS_MODIFIERS[finalMods] + " class " + m_name + "{\n";
 
-    if(finalMods & PRIVATE) {
-        result += "private ";
-    } else if(finalMods & PRIVATEPROTECTED) {
-        result += "private protected ";
-    } else if(finalMods & FILE) {
-        result += "file ";
-    } else if(finalMods & PROTECTED) {
-        result += "protected ";
-    } else if(finalMods & INTERNAL) {
-        result += "internal ";
-    } else if(finalMods & PROTECTEDINTERNAL) {
-        result += "protected internal ";
-    } else if(finalMods & PUBLIC) {
-        result += "public ";
+    for(size_t i = 0; i < ACCESS_MODIFIERS.size(); ++i) {
+        if(m_fields[i].empty()) {
+            continue;
+        }
+
+        for(const auto& f: m_fields[i]) {
+            result += generateShift(level + 1);
+            result += ACCESS_MODIFIERS[i] + " ";
+            result += f->compile(0);
+        }
+        result += "\n";
     }
-
-    result += "class " + m_name + " {\n";
-
-    for(auto &f: m_fields) {
-        result += f->compile(level + 1) + "\n";
-    }
-
-    result += generateShift(level) + "}\n;";
+    result += generateShift(level) + "};\n";
     return result;
 }

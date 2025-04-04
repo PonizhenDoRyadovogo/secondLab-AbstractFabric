@@ -6,8 +6,25 @@
 
 class Unit {
 public:
+    enum AccessModifier
+    {
+        PUBLIC,
+        PROTECTED,
+        PRIVATE,
+        PRIVATEPROTECTED,
+        FILE,
+        INTERNAL,
+        PROTECTEDINTERNAL
+    };
+    enum Modifier {
+        STATIC = 1,
+        VIRTUAL = 1 << 1,
+        CONST = 1 << 2,
+        ABSTRACT = 1 << 3,
+        FINAL = 1 << 4
+    };
+public:
     using Flags = unsigned int;
-
 public:
     virtual ~Unit() = default;
     virtual void add(const std::shared_ptr<Unit>& , Flags) {

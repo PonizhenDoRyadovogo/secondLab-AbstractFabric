@@ -8,10 +8,10 @@
 
 std::string generateProgram(const ICodefactory &factory)
 {
-    auto myClass = factory.createClass("MyClass", ClassCs::PUBLIC);
-    auto myMethod = factory.createMethod("func1", "int", MethodCs::PRIVATE);
+    auto myClass = factory.createClass("MyClass", Unit::PUBLIC);
+    auto myMethod = factory.createMethod("func1", "int", Unit::PRIVATE);
     myMethod->add(factory.createPrintOperator("Hello, World"), 0);
-    myClass->add(myMethod, 0);
+    myClass->add(myMethod, Unit::PRIVATEPROTECTED);
     return myClass->compile();
 }
 
@@ -25,8 +25,13 @@ int main(int argc, char *argv[])
     }
     {
         std::cout<<"=== C++ code ===\n";
-        CodefactoryCpp cppFactory;
+        CodeFactoryCpp cppFactory;
         std::cout << generateProgram(cppFactory) <<std::endl;
+    }
+    {
+        std::cout<<"=== Java code ===\n";
+        CodeFactoryJava javaFactory;
+        std::cout << generateProgram(javaFactory) <<std::endl;
     }
     return a.exec();
 }

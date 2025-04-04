@@ -9,11 +9,10 @@
 class CodeFactoryCs : public ICodefactory
 {
     std::shared_ptr<Unit> createClass(const std::string &name,
-        Unit::Flags flags,
-        bool isNested = false
+        Unit::Flags flags
     ) const override
     {
-        return std::make_shared<ClassCs>(name, flags, isNested);
+        return std::make_shared<ClassCs>(name, flags);
     }
 
     std::shared_ptr<Unit> createMethod(const std::string &name,

@@ -7,15 +7,6 @@
 class MethodJava : public Unit
 {
 public:
-    enum Modifier {
-        PRIVATE = 1,
-        PUBLIC = 1 << 1,
-        PROTECTED = 1 << 2,
-        FINAL = 1 << 3,
-        ABSTRACT = 1 << 4,
-        STATIC = 1 << 5
-    };
-public:
     MethodJava(const std::string &name, const std::string &returnType, Flags flags = 0)
         :m_name(name), m_returnType(returnType), m_flags(flags)
     {}

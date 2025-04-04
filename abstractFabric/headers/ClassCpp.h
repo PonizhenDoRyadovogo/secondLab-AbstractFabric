@@ -8,14 +8,9 @@
 class ClassCpp : public Unit
 {
 public:
-    enum AccessModifier {
-        PUBLIC,
-        PROTECTED,
-        PRIVATE
-    };
     static const std::vector<std::string> ACCESS_MODIFIERS;
 public:
-    ClassCpp(const std::string &name);
+    ClassCpp(const std::string &name, Flags modifier = 0);
     void add(const std::shared_ptr<Unit> &unit, Flags flags) override;
     std::string compile(unsigned int level = 0) const override;
 private:

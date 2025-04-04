@@ -9,8 +9,7 @@
 class CodeFactoryJava : public ICodefactory
 {
     std::shared_ptr<Unit> createClass(const std::string &name,
-        Unit::Flags flags,
-        bool isNested = false
+        Unit::Flags flags
     ) const override
     {
         return std::make_shared<ClassJava>(name, flags);

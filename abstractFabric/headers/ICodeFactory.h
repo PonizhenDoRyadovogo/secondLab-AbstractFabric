@@ -7,8 +7,7 @@ class ICodefactory {
 public:
     virtual ~ICodefactory() = default;
     virtual std::shared_ptr<Unit> createClass(const std::string &name,
-        Unit::Flags flags,
-        bool isNested = false
+        Unit::Flags flags
     ) const = 0;
 
     virtual std::shared_ptr<Unit> createMethod(const std::string &name,
