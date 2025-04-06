@@ -8,7 +8,7 @@
 
 std::string generateProgram(const ICodefactory &factory)
 {
-    auto myClass = factory.createClass("MyClass", Unit::FINAL, Unit::PUBLIC);
+    auto myClass = factory.createClass("MyClass", Unit::FINAL, Unit::FILE);
     auto myMethod = factory.createMethod("func1", "int", Unit::ABSTRACT);
     myMethod->add(factory.createPrintOperator("Hello, World"), 0);
     myClass->add(myMethod, Unit::PRIVATEPROTECTED);

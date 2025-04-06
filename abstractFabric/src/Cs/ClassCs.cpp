@@ -35,7 +35,7 @@ std::string ClassCs::compile(unsigned int level) const
     Flags finalMods = m_accessModifier;
     //у топ-левел классов могут быть только модификаторы public, file и internal
     if(level == 0) {
-        if(m_accessModifier != PUBLIC & m_accessModifier != FILE & m_accessModifier != INTERNAL) {
+        if(m_accessModifier != PUBLIC && m_accessModifier != FILE && m_accessModifier != INTERNAL) {
             finalMods = INTERNAL;
         }
     }

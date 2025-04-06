@@ -14,7 +14,7 @@ public:
         Unit::Flags accessModifier
     ) const override
     {
-        return std::make_shared<ClassCpp>(name, accessModifier, flags);
+        return std::make_shared<ClassCpp>(name, flags, accessModifier);
     }
 
     std::shared_ptr<Unit> createMethod(const std::string &name,
