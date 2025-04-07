@@ -22,7 +22,7 @@ std::string MethodCs::compile(unsigned int level) const
     if((m_flags & ABSTRACT) == 0) {
         result += "{\n";
         for(const auto& b: m_body) {
-            result += b->compile(level + 2);
+            result += b->compile(level + 1);
         }
         result += generateShift(level + 1) + "}\n";
     }

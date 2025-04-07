@@ -11,7 +11,7 @@ public:
     static const std::vector<std::string> ACCESS_MODIFIERS;
 public:
     ClassCpp(const std::string &name, Flags flags, Flags = 0);
-    void add(const std::shared_ptr<Unit> &unit, Flags flags) override;
+    void add(const std::shared_ptr<Unit> &unit, Flags flags = 0) override;
     std::string compile(unsigned int level = 0) const override;
 private:
     std::string m_name;
